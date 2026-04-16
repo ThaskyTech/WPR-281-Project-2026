@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Ticket - Arch Ledger</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Arch Ledger</h1>
+        <nav>
+            <button id="nav-dashboard" ><a href="dashboard.html">Dashboard</a></button>
+            <button id="nav-create-issue"><a href="ticket.html">Create Ticket</a></button>
+            <button id="nav-manage-people"><a href="people.html">Manage People</a></button>
+            <button id="nav-manage-projects"><a href="projects.html">Manage Projects</a></button>
+        </nav>
+        <div class="admin-profile">Sign-In</div>
+    </header>
+
+    <main>
+        <section class="form-container">
+            <h2>Create / Edit Issue Ticket</h2>
+            
+            <form id="form-issue">
+                
+                <fieldset>
+                    <legend>Issue Details</legend>
+                    <label for="issue-summary">Summary:</label>
+                    <input type="text" id="issue-summary" placeholder="Brief summary of the bug..." required>
+
+                    <label for="issue-desc">Detailed Description:</label>
+                    <textarea id="issue-desc" rows="5" placeholder="Describe the issue in detail..." required></textarea>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Classification & Assignment</legend>
+                    
+                    <label for="issue-project">Related Project:</label>
+                    <select id="issue-project" required>
+                        <option value="">Select a Project...</option>
+                        <option value="p1">E-Commerce Web</option>
+                    </select>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="issue-priority">Priority:</label>
+                            <select id="issue-priority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="issue-status">Status:</label>
+                            <select id="issue-status">
+                                <option value="open">Open</option>
+                                <option value="resolved">Resolved</option>
+                                <option value="overdue">Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="issue-reporter">Identified By:</label>
+                            <input type="text" id="issue-reporter" placeholder="Your Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="issue-assignee">Assigned To:</label>
+                            <select id="issue-assignee">
+                                <option value="unassigned">Unassigned</option>
+                                <option value="u1">jdoe</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Timelines & Resolution</legend>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="issue-date-identified">Date Identified:</label>
+                            <input type="date" id="issue-date-identified" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="issue-date-target">Target Resolution Date:</label>
+                            <input type="date" id="issue-date-target">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="issue-date-actual">Actual Resolution Date:</label>
+                            <input type="date" id="issue-date-actual">
+                        </div>
+                    </div>
+
+                    <label for="issue-resolution-summary">Resolution Summary:</label>
+                    <textarea id="issue-resolution-summary" rows="3" placeholder="How was this fixed?"></textarea>
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Save Ticket</button>
+                    <button type="reset" class="btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
