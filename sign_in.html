@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sign-In - Arch Ledger</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Arch Ledger</h1>
+    </header>
+
+    <main style="min-height: 70vh; display: flex; align-items: center;">
+        <section class="form-container" style="max-width: 400px;">
+            <h2 style="text-align: center; border-bottom: none; margin-bottom: 0.5rem;">Admin Sign-In</h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 0.9rem; color: #666;">Please enter your administrative credentials.</p>
+            
+            <form id="form-login">
+                
+                <label for="admin-username">Username:</label>
+                <input type="text" id="admin-username" placeholder="e.g., admin" required>
+
+                <label for="admin-password">Password:</label>
+                <input type="password" id="admin-password" placeholder="••••••••" required>
+
+                <div class="form-actions" style="margin-top: 2rem;">
+                    <button type="submit" class="btn-primary" style="width: 100%; text-align: center;">Login to System</button>
+                </div>
+                
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>

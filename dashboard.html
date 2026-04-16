@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arch Ledger</title>
+    <title>Arch Ledger - Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,18 +11,23 @@
     <header>
         <h1>Arch Ledger</h1>
         <nav>
-            <button id="nav-dashboard" ><a href="dashboard.html">Dashboard</a></button>
-            <button id="nav-create-issue"><a href="ticket.html">Create Ticket</a></button>
-            <button id="nav-manage-people"><a href="people.html">Manage People</a></button>
-            <button id="nav-manage-projects"><a href="projects.html">Manage Projects</a></button>
+            <ul class="nav-list">
+                <li><a href="dashboard.html" class="nav-link active-link">Dashboard</a></li>
+                <li><a href="ticket.html" class="nav-link">Create Ticket</a></li>
+                <li><a href="people.html" class="nav-link">Manage People</a></li>
+                <li><a href="projects.html" class="nav-link">Manage Projects</a></li>
+            </ul>
         </nav>
-        <div class="admin-profile">Sign-In</div>
+        <div class="admin-profile">
+            <a href="sign_in.html" class="nav-link">Sign-In</a>
+        </div>
     </header>
 
     <main>
-        <section id="view-dashboard" class="active-view">
+        <section id="view-dashboard" class="form-container" style="max-width: 100%; box-shadow: none; background: transparent;">
             <h2>Issues Dashboard</h2>
             <div class="kanban-board">
+                
                 <section class="kanban-column" id="col-open">
                     <h3>Open</h3>
                     <article class="ticket-card priority-high">
@@ -40,114 +45,13 @@
 
                 <section class="kanban-column" id="col-overdue">
                     <h3>Overdue</h3>
-                    </section>
+                </section>
 
                 <section class="kanban-column" id="col-resolved">
                     <h3>Resolved</h3>
-                    </section>
-            </div>
-        </section>
-
-        <section id="view-create-issue" class="hidden-view">
-            <h2>Create / Edit Issue Ticket</h2>
-            <form id="form-issue">
-                <fieldset>
-                    <legend>Issue Details</legend>
-                    <label for="issue-summary">Summary:</label>
-                    <input type="text" id="issue-summary" required>
-
-                    <label for="issue-desc">Detailed Description:</label>
-                    <textarea id="issue-desc" rows="4" required></textarea>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Classification</legend>
-                    <label for="issue-project">Related Project:</label>
-                    <select id="issue-project" required>
-                        <option value="">Select Project...</option>
-                    </select>
-
-                    <label for="issue-priority">Priority:</label>
-                    <select id="issue-priority">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-
-                    <label for="issue-status">Status:</label>
-                    <select id="issue-status">
-                        <option value="open">Open</option>
-                        <option value="overdue">Overdue</option>
-                        <option value="resolved">Resolved</option>
-                    </select>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Assignment & Dates</legend>
-                    <label for="issue-reporter">Identified By:</label>
-                    <input type="text" id="issue-reporter" required>
-
-                    <label for="issue-assignee">Assigned To:</label>
-                    <select id="issue-assignee">
-                        <option value="">Unassigned</option>
-                    </select>
-
-                    <label for="issue-date-identified">Date Identified:</label>
-                    <input type="date" id="issue-date-identified" required>
-
-                    <label for="issue-date-target">Target Resolution Date:</label>
-                    <input type="date" id="issue-date-target">
-
-                    <label for="issue-date-actual">Actual Resolution Date:</label>
-                    <input type="date" id="issue-date-actual">
-                </fieldset>
-
-                <fieldset>
-                    <legend>Resolution</legend>
-                    <label for="issue-resolution-summary">Resolution Summary:</label>
-                    <textarea id="issue-resolution-summary" rows="2"></textarea>
-                </fieldset>
-
-                <button type="submit">Save Issue</button>
-            </form>
-        </section>
-
-        <section id="view-manage-people" class="hidden-view">
-            <h2>Add New Person</h2>
-            <form id="form-person">
-                <label for="person-id">ID:</label>
-                <input type="text" id="person-id" required>
-
-                <label for="person-name">Name:</label>
-                <input type="text" id="person-name" required>
-
-                <label for="person-surname">Surname:</label>
-                <input type="text" id="person-surname" required>
-
-                <label for="person-email">Email:</label>
-                <input type="email" id="person-email" required>
-
-                <label for="person-username">Unique Username:</label>
-                <input type="text" id="person-username" required>
+                </section>
                 
-                <label for="person-pic">Profile Picture URL (Optional Bonus):</label>
-                <input type="url" id="person-pic">
-
-                <button type="submit">Add Person</button>
-            </form>
-        </section>
-
-        <section id="view-manage-projects" class="hidden-view">
-            <h2>Add New Project</h2>
-            <form id="form-project">
-                <label for="project-id">Project ID:</label>
-                <input type="text" id="project-id" required>
-
-                <label for="project-name">Project Name:</label>
-                <input type="text" id="project-name" required>
-
-                <button type="submit">Add Project</button>
-            </form>
+            </div>
         </section>
     </main>
 
@@ -155,12 +59,12 @@
         <article>
             <header>
                 <h2 id="modal-title">Issue Summary</h2>
-                <button id="btn-close-modal">Close</button>
+                <button id="btn-close-modal" class="btn-secondary">Close</button>
             </header>
             <div id="modal-content">
                 </div>
-            <footer>
-                <button id="btn-edit-issue">Edit this Issue</button>
+            <footer style="margin-top: 1rem;">
+                <a href="ticket.html" id="btn-edit-issue" class="btn-primary" style="text-decoration: none; display: inline-block;">Edit this Issue</a>
             </footer>
         </article>
     </dialog>
