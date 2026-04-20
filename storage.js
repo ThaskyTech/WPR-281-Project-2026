@@ -150,4 +150,17 @@ const StorageService = {
     }
 };
 
+let people = [
+    { id: "p1", name: "Lebo", surname: "Mokoena", email: "lebo@bt.com", username: "lebo_m", profilePic: "" },
+    { id: "p2", name: "Thabo", surname: "Dlamini", email: "thabo@bt.com", username: "thabo_d", profilePic: "" },
+    { id: "p3", name: "Ayanda", surname: "Nkosi", email: "ayanda@bt.com", username: "ayanda_n", profilePic: "" },
+    { id: "p4", name: "Priya", surname: "Naidoo", email: "priya@bt.com", username: "priya_n", profilePic: "" }
+];
+StorageService._save(STORAGE_KEYS.PEOPLE, people);
+let projects = [
+    { id: "PRJ-101", name: "Student Portal" },
+    { id: "PRJ-102", name: "Library System" },
+    { id: "PRJ-103", name: "Timetable App" }
+];
+StorageService._save(STORAGE_KEYS.PROJECTS, projects);
 window.StorageService = StorageService;
