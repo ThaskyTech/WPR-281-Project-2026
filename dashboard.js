@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () =>
             button.addEventListener('click', (e) => 
             {
                 const bugID = e.target.getAttribute('data-id');
-                const bug = StorageService.getBugByID(bugID);
+                const bug = StorageService.getBugByID(parseInt(bugID));
                 const person = StorageService.getPersonByID(bug.PersonID);
                 
                 // Inject the specific ticket's details into the modal
