@@ -349,7 +349,10 @@ dialog #btn-close-modal
     background: #e74c3c;
     color: white;
     border: none;
-    padding: 0.3rem 0.7rem;
-    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
     border-radius: 4px;
+    flex: none; 
+    width: auto; 
+    margin-left: auto;
 }

@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () =>
         bugs = bugs.filter(bug => 
         {
             const matchesText = bug.Summary.toLowerCase().includes(textSearch) || bug.Description.toLowerCase().includes(textSearch);
-            const matchesAssignee = assigneeSearch === 'all' || bug.PersonID === assigneeSearch;
+            const matchesAssignee = assigneeSearch === 'all' || String(bug.PersonID) === String(assigneeSearch);
             const matchesPriority = prioritySearch === 'all' || bug.Priority.toLowerCase() === prioritySearch;
             
             return matchesText && matchesAssignee && matchesPriority;
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () =>
             const person = StorageService.getPersonByID(bug.PersonID);
             const assigneeName = person ? person.Username : 'Unassigned';
 
-            // Build the exact HTML for the card
+            // Build the card
             const cardHTML = `
                 <article class="ticket-card priority-${bug.Priority.toLowerCase()}">
                     <header>
