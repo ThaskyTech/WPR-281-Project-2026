@@ -2,14 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let form = document.getElementById("form-issue");
 
-    form.addEventListener("submit", function(event){
+    form.addEventListener("submit", function(event){ // on clicking the submit we start this function
         event.preventDefault(); // Stop the silent page reload!
 
         let summary = document.getElementById("issue-summary").value;
-        let detailedDescription = document.getElementById("issue-desc").value;
+        let detailedDescription = document.getElementById("issue-desc").value; // .value goes through every input and extracts it
 
         // IDs parsed as numbers to match the database
-        let relatedProject = parseInt(document.getElementById("issue-project").value);
+        let relatedProject = parseInt(document.getElementById("issue-project").value); // Parsing the input texts (strings) to a int for the database
         let assignee = parseInt(document.getElementById("issue-assignee").value);
 
         let priority = document.getElementById("issue-priority").value;
@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (summary ===  "" || detailedDescription === "" || isNaN(relatedProject) || reporter === "" || dateIdentified === "") {
             alert("Please complete all required fields. Ensure a valid Project is selected.");
             return;
-        }
+        } // if the user left projects empty, it would try to parse it to a number. Return stops the ticket from being saved.
 
-        let ticket = new bugObj(
+        let ticket = new bugObj( // takes all the inputs and places it into an objects
             null,
             summary,
             detailedDescription,
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resolutionSummary
         );
 
-        StorageService.saveBug(ticket);
+        StorageService.saveBug(ticket); // takes the ticket object, gives it to the storageService and saves it.
 
         alert("Ticket saved successfully!");
         form.reset();

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => // Same as defer, preventing
         const username = document.getElementById('admin-username').value.trim();
         const password = document.getElementById('admin-password').value.trim();
 
-        // Check against our hardcoded admin credentials
+        // Check admin credentials
         if (username === 'admin' && password === '1234') 
         {
             // Optional: Save a flag in localStorage so the system knows you are logged in

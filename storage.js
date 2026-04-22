@@ -1,6 +1,7 @@
+// These are the object functions, where we store all the input from the other pages.
 function projectObj(id, name) {
     this.ID = id;
-    this.Name = name;
+    this.Name = name; //.this is specified to the object itself.
 }
 
 function personObj(id, name, surname, email, username, avatar) {
@@ -26,27 +27,27 @@ function bugObj(id, summary, description, priority, status, projectID, personID,
     this.ResolutionSummary = resolutionSummary;
 }
 
-const STORAGE_KEYS = {
+const STORAGE_KEYS = { //storage keys is the variable name for saving names as variables
     PROJECTS: 'bug_tracker_projects',
     PEOPLE: 'bug_tracker_people',
     BUGS: 'bug_tracker_bugs'
 }
 
 const StorageService = {
-    _save(key, data) {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
+    _save(key, data) { //underscore is to make the function name private 
+        try { // try is to try and store the item first.
+            localStorage.setItem(key, JSON.stringify(data)); 
             return true;
-        } catch (error) {
+        } catch (error) { // catch for when the browser's storage is full or disabled, it gives an error
             console.error(`Error saving to ${key}:`, error);
             return false;
-        }
+        } /* the localStorage can only hold plain text, JSON.stringify translates the arrays to strings before saving*/
     },
 
     _load(key) {
         try {
             const data = localStorage.getItem(key);
-            return data ? JSON.parse(data) : [];
+            return data ? JSON.parse(data) : []; // JSON.parse translate the string back to an array when loading
         } catch (error) {
             console.error(`Error loading from ${key}:`, error);
             return [];
@@ -164,8 +165,8 @@ let people = [
         "ID": 4, "Name": "David", "Surname": "Dlamini", "Email": "david.dlamini@devteam.co.za", "Username": "ddlamini", "Avatar": "https://api.dicebear.com/7.x/thumbs/svg?seed=ddlamini"
     }
 ];
-if (StorageService.getPeople().length === 0) {
-    StorageService._save(STORAGE_KEYS.PEOPLE, people);
+if (StorageService.getPeople().length === 0) { // checks if the people in the array is empty
+    StorageService._save(STORAGE_KEYS.PEOPLE, people); // if true it fills the website with the dummy data above
 }
 
 let projects = [
@@ -178,7 +179,7 @@ if (StorageService.getProjects().length === 0) {
     StorageService._save(STORAGE_KEYS.PROJECTS, projects);
 }
 
-let bugs = [
+let bugs = [ // dummy data for bugs
     {
         "ID": 1,
         "Summary": "Login button unresponsive on Safari",
