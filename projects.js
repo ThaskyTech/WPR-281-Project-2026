@@ -1,40 +1,22 @@
-function getProjects(){
-    return JSON.parse(localStorage.getItem("projects")) || [];
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById("form-project");
 
-function saveProjects(projects){
-    localStorage.setItem("projects", JSON.stringify(projects));
-}
+    form.addEventListener("submit", function(e){
+        e.preventDefault();
 
-function initProjects(){
-    if(localStorage.getItem("PROJECTS")) return;
+        const name = document.getElementById("project-name").value.trim();
+        const projects = StorageService.getProjects();
+        
+        // Generate a new numeric ID
+        const newId = projects.length > 0 ? Math.max(...projects.map(p => p.ID)) + 1 : 1;
 
-    const defaultProjects = [
-        { id: "PRJ-101", name: "Student Portal" },
-        { id: "PRJ-102", name: "Library System" },
-        { id: "PRJ-103", name: "Timetable App" },
-    ];
+        // Use the object from storage.js
+        let newProject = new projectObj(newId, name);
 
-    saveProjects(defaultProjects);
-}
+        StorageService.saveProjects(newProject);
 
-document.getElementById("form-project").addEventListener("submit", function(e){
-    e.preventDefault();
-
-    const id = document.getElementById("project-id").ariaValueMax.trim();
-    const name = document.getElementById("project-name").ariaValueMax.trim();
-    const projects = getProjects();
-
-    if(projects.some(p => p.id === id)){
-        alert(`The ID {${id}} is already in use. Please choose a different one.`);
-    }
-
-    const newPorject = {id, name};
-
-    projects.push(newPorject);
-    saveProjects(getProjects);
-
-    this.reset();
+        alert("Project saved successfully!");
+        form.reset();
+        window.location.href = "dashboard.html";
+    });
 });
-
-initProjects();

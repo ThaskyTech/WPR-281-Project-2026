@@ -97,7 +97,7 @@ const StorageService = {
         let bugs = StorageService.getBugs();
         const index = bugs.findIndex(b => b.ID === bug.ID);
         if (index === -1) {
-            bug.ID = bug.ID || bugs.length;
+            bug.ID = bug.ID || (bugs.length > 0 ? Math.max(...bugs.map(b => b.ID)) + 1 : 1);
             bug.DateCreated = bug.DateCreated || new Date().toISOString();
             bugs.push(bug);
         } else {
@@ -164,7 +164,9 @@ let people = [
         "ID": 4, "Name": "David", "Surname": "Dlamini", "Email": "david.dlamini@devteam.co.za", "Username": "ddlamini", "Avatar": "https://api.dicebear.com/7.x/thumbs/svg?seed=ddlamini"
     }
 ];
-StorageService._save(STORAGE_KEYS.PEOPLE, people);
+if (StorageService.getPeople().length === 0) {
+    StorageService._save(STORAGE_KEYS.PEOPLE, people);
+}
 
 let projects = [
     { "ID": 1, "Name": "Customer Portal" },
@@ -172,7 +174,9 @@ let projects = [
     { "ID": 3, "Name": "Admin Dashboard" },
     { "ID": 4, "Name": "Payment Gateway" }
 ];
-StorageService._save(STORAGE_KEYS.PROJECTS, projects);
+if (StorageService.getProjects().length === 0) {
+    StorageService._save(STORAGE_KEYS.PROJECTS, projects);
+}
 
 let bugs = [
     {
@@ -332,6 +336,8 @@ let bugs = [
         "ResolutionSummary": "Added a server-side check that compares the target user ID against the authenticated session user ID. The delete button is also hidden client-side for the logged-in user's own row."
     }
 ];
-StorageService._save(STORAGE_KEYS.BUGS, bugs);
+if (StorageService.getBugs().length === 0) {
+    StorageService._save(STORAGE_KEYS.BUGS, bugs);
+}
 
 window.StorageService = StorageService;

@@ -1,53 +1,40 @@
-//This function gets the people data from local Storage.
-function getPeople(){
-    return JSON.parse(localStorage.getItem("people")) || [];
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById("form-person");
 
-//This function commits/pushes people data into Local Storage.
-function savePeople(people){
-    localStorage.setItem("people", JSON.stringify(people)) || [];
-}
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
 
+        const username = document.getElementById("person-username").value.trim();
+        const name = document.getElementById("person-name").value.trim();
+        const surname = document.getElementById("person-surname").value.trim();
+        const email = document.getElementById("person-email").value.trim();
+        let profilePic = document.getElementById("person-pic") ? document.getElementById("person-pic").value.trim() : "";
+        
+        const people = StorageService.getPeople();
 
-//This function populates the local storage with some default data.
-function initPeople(){
-    if(localStorage,getItem("People")) return; //If already populated, don't ooverwrite data
+        // Prevent duplicate usernames
+        if(people.some(p => p.Username === username)){
+            alert(`The username ${username} is already taken. Please choose another!`);
+            return;
+        }
 
-    const defaultPeople = [
-        { id: "p1", name: "Lebo",    surname: "Mokoena",  email: "lebo@bt.com",    username: "lebo_m",    profilePic: "" },
-        { id: "p2", name: "Thabo",   surname: "Dlamini",  email: "thabo@bt.com",   username: "thabo_d",   profilePic: "" },
-        { id: "p3", name: "Ayanda",  surname: "Nkosi",    email: "ayanda@bt.com",  username: "ayanda_n",  profilePic: "" },
-        { id: "p4", name: "Priya",   surname: "Naidoo",   email: "priya@bt.com",   username: "priya_n",   profilePic: "" },
-    ];
+        // Generate a new numeric ID so it matches the dashboard data
+        const newId = people.length > 0 ? Math.max(...people.map(p => p.ID)) + 1 : 1;
 
-    savePeople(defaultPeople);
-}
+        // Use the object from storage.js
+        let newPerson = new personObj(
+            newId, 
+            name, 
+            surname, 
+            email, 
+            username, 
+            profilePic || `https://api.dicebear.com/7.x/thumbs/svg?seed=${username}`
+        );
 
-initPeople();// Runs the function on first load, also donesn't overwrite existing data.
-
-document.getElementById("form-person").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const id = document.getElementById("person-id").ariaValueMax.trim();
-    const username = document.getElementById("person-username").ariaValueMax.trim();
-    const name = document.getElementById("person-name").ariaValueMax.trim();
-    const surname = document.getElementById("person-surname").value.trim();
-    const email = document.getElementById("person-email").value.trim();
-    const profilePic = document.getElementById("person-pic").value.trim();
-    const people = getPeople();
-
-    if(people.some(p => p.username === username)){
-        alert(`The username ${username} is already taken. Please choose another!`);
-        return;
-    }
-
-    const newPerson = {id, name, surname, email, profilePic};
-
-    people.push(newPerson);
-    savePeople(people);
-    renderPeople();
-
+        StorageService.savePerson(newPerson);
+        
+        alert("Person saved successfully!");
+        form.reset();
+        window.location.href = "dashboard.html";
+    });
 });
-
-initPeople();
-renderPeople();
