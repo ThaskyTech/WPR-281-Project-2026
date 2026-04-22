@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => 
+document.addEventListener('DOMContentLoaded', () => // This page is linked to all the other HTML pages
 {
     // 1. Check the local storage to see if the user successfully logged in
     const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () =>
         return; // Stop running any more code
     }
 
-    // If they ARE logged in, but they try to go back to the sign-in page, push them to the dashboard
+    // If they ARE logged in, push them to the dashboard
     if (isLoggedIn && isSignInPage) 
     {
         window.location.href = 'dashboard.html';
@@ -22,14 +22,14 @@ document.addEventListener('DOMContentLoaded', () =>
     }
 
     // UI LOGIC:
-    // If they are logged in and looking at the main app, change the top right corner
+    // If they are logged in and looking at the main page, change the top right corner
     if (isLoggedIn && !isSignInPage) 
     {
         const profileDiv = document.querySelector('.admin-profile');
         
         if (profileDiv) 
         {
-            // Replace the "Sign-In" link with a Welcome message and a Log Out button
+            // Replace the "Sign-In" link with a Log Out button
             profileDiv.innerHTML = `
                 <span style="color: white; margin-right: 15px; font-weight: 500;">Admin User</span>
                 <a href="#" id="btn-logout" class="nav-link" style="display: inline-block; background-color: #e74c3c; border-color: #e74c3c;">Log Out</a>
@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () =>
             // Make the Log Out button actually work
             document.getElementById('btn-logout').addEventListener('click', (e) => 
             {
-                e.preventDefault(); // Stop the link from jumping to the top of the page
+                e.preventDefault(); /* Stop the link from jumping to the top of the page 
+                (since href === #, it would act as the user being directed to the top of the current page, this default stops it)*/ 
                 
                 // Delete the login key from memory
                 localStorage.removeItem('adminLoggedIn'); 

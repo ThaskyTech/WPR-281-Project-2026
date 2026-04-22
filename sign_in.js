@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => 
+document.addEventListener('DOMContentLoaded', () => // Same as defer, preventing the crash of the browser
 {
     const loginForm = document.getElementById('form-login');
 
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () =>
         else 
         {
             // Show an error and clear the form if they get it wrong
-            alert('Invalid credentials. Please use "admin" for both username and password.');
+            alert('Invalid credentials. Please try again.');
             loginForm.reset();
         }
     });

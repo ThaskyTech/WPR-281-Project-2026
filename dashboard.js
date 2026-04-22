@@ -37,10 +37,10 @@ document.addEventListener('DOMContentLoaded', () =>
         const assigneeSearch = document.getElementById('filter-assignee').value;
         const prioritySearch = document.getElementById('filter-priority').value;
 
-        bugs = bugs.filter(bug => 
-        {
+        bugs = bugs.filter(bug => // Bugs filter is an array method, loops through tickets and see if its true or false.
+        { //Three seperate tests that each ticket has to pass to enable the ticket to be placed in the columns
             const matchesText = bug.Summary.toLowerCase().includes(textSearch) || bug.Description.toLowerCase().includes(textSearch);
-            const matchesAssignee = assigneeSearch === 'all' || String(bug.PersonID) === String(assigneeSearch);
+            const matchesAssignee = assigneeSearch === 'all' || String(bug.PersonID) === String(assigneeSearch); // Does the exact string belong to the person?
             const matchesPriority = prioritySearch === 'all' || bug.Priority.toLowerCase() === prioritySearch;
             
             return matchesText && matchesAssignee && matchesPriority;
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () =>
             
             // Get the person's name (or show Unassigned)
             const person = StorageService.getPersonByID(bug.PersonID);
-            const assigneeName = person ? person.Username : 'Unassigned';
+            const assigneeName = person ? person.Username : 'Unassigned'; // Ternary: If true, display name, else unassigned
 
             // Build the card
             const cardHTML = `
@@ -86,19 +86,19 @@ document.addEventListener('DOMContentLoaded', () =>
             }
         });
 
-        // Add "Empty State" messages if a column has no cards
+        // Add "Empty State" messages if a column has no cards  (=== 1; since <h3> in render board is a child)
         if (colOpen.children.length === 1) colOpen.innerHTML += '<p style="color: #666; font-size: 0.9rem; text-align: center;">No open issues</p>';
         if (colOverdue.children.length === 1) colOverdue.innerHTML += '<p style="color: #666; font-size: 0.9rem; text-align: center;">No overdue issues</p>';
         if (colResolved.children.length === 1) colResolved.innerHTML += '<p style="color: #666; font-size: 0.9rem; text-align: center;">No resolved issues</p>';
 
-        // Attach clicks to the new "View Details" buttons
+        // Attach clicks to the "View Details" button
         attachModalListeners();
     }
 
     // 3. MODAL LOGIC (View Details)
     function attachModalListeners() 
     {
-        const modal = document.getElementById('modal-issue-details');
+        const modal = document.getElementById('modal-issue-details'); //Gets empty HTML cards from HTML 
         const modalContent = document.getElementById('modal-content');
         const btnEditIssue = document.getElementById('btn-edit-issue');
 
@@ -106,9 +106,9 @@ document.addEventListener('DOMContentLoaded', () =>
         {
             button.addEventListener('click', (e) => 
             {
-                const bugID = e.target.getAttribute('data-id');
+                const bugID = e.target.getAttribute('data-id'); // Once button is clicked, JavaScript knows which button was clicked
                 const bug = StorageService.getBugByID(parseInt(bugID));
-                const person = StorageService.getPersonByID(bug.PersonID);
+                const person = StorageService.getPersonByID(bug.PersonID); // get...ByID is the ID's from the database (relational)
                 
                 // Inject the specific ticket's details into the modal
                 modalContent.innerHTML = `
@@ -132,20 +132,20 @@ document.addEventListener('DOMContentLoaded', () =>
         document.getElementById('btn-close-modal').onclick = () => modal.close();
     }
 
-    // 4. WIRE UP THE FILTERS TO TRIGGER RE-RENDERS
-    document.getElementById('filter-text').addEventListener('input', renderBoard);
-    document.getElementById('filter-assignee').addEventListener('change', renderBoard);
+    // 4. WIRE UP THE FILTERS TO TRIGGER RE-RENDERS (connecting buttons to dashboard)
+    document.getElementById('filter-text').addEventListener('input', renderBoard); // Input for text (search)
+    document.getElementById('filter-assignee').addEventListener('change', renderBoard); // change for dropdown
     document.getElementById('filter-priority').addEventListener('change', renderBoard);
     
-    document.getElementById('btn-clear-filters').addEventListener('click', () => 
+    document.getElementById('btn-clear-filters').addEventListener('click', () => // When click clear function it triggers arrow function
     {
         document.getElementById('filter-text').value = '';
         document.getElementById('filter-assignee').value = 'all';
         document.getElementById('filter-priority').value = 'all';
-        renderBoard(); // Re-draw board without filters
+        renderBoard(); // Re-draw board without filters (displaying all the cards)
     });
 
     // 5. INITIALIZE THE PAGE
-    populateAssigneeFilter();
+    populateAssigneeFilter(); // Since they arent in a function, its the default when the JavaScript loads
     renderBoard();
 });
